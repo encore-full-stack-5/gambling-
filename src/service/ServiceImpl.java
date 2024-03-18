@@ -383,7 +383,97 @@ public class ServiceImpl implements Service {
 
     @Override
     public String result() {
-        return null;
+
+        boolean isSkill = false;
+        int myScore = resultList.get(0);
+        int computerScore = resultList.get(1);
+        String resultTxt = "";
+
+        if (isSampal(myScore)) {
+            resultTxt = "승리";
+        } else if (isSampal(computerScore)) {
+            resultTxt = "패배";
+        } else {
+            // 암행어사
+            if (isAmHaeng(myScore)) {
+                if (isAmHaeng(myScore) && isGwang(computerScore)) {
+                    resultTxt = "승리";
+                    isSkill = true;
+                } else {
+                    myScore = 1;
+                }
+            }
+            if (isAmHaeng(computerScore)) {
+                if (isAmHaeng(computerScore) && isGwang(myScore)) {
+                    resultTxt = "패배";
+                    isSkill = true;
+                } else {
+                    computerScore = 1;
+                }
+            }
+            // 땡잡이
+            if (isTtaengJabi(myScore)) {
+                if (isTtaengJabi(myScore) && isTtaeng(computerScore)) {
+                    resultTxt = "승리";
+                    isSkill = true;
+                } else {
+                    myScore = 0;
+                }
+            }
+            if (isTtaengJabi(computerScore)) {
+                if (isTtaengJabi(computerScore) && isTtaeng(myScore)) {
+                    resultTxt = "패배";
+                    isSkill = true;
+                } else {
+                    computerScore = 0;
+                }
+            }
+            // 멍텅구리구사 / 구사 파토
+            if((myScore == 300 || myScore == 20) || (computerScore == 300 || computerScore == 20)) {
+                if (isMungsa(computerScore, myScore) || isPato(computerScore , myScore)) {
+                    resultTxt = "재경기";
+                    isSkill = true;
+                } else {
+                    resultTxt = "패배";
+                    isSkill = true;
+                }
+            }
+
+            // 점수 비교
+            if (!isSkill) {
+                if (myScore > computerScore) {
+                    resultTxt = "승리";
+                } else if (myScore == computerScore) {
+                    resultTxt = "재경기";
+                    // start();
+                } else {
+                    resultTxt = "패배";
+                }
+            }
+        }
+        return resultTxt;
+    }
+
+    private static boolean isSampal(int score) {
+        return score == 2000;
+    }
+    private static boolean isGwang(int score) {
+        return score == 1100 || score == 1200; // 1.3광땡, 1.8광땡
+    }
+    private static boolean isAmHaeng(int score) {
+        return score == 1300; // 암행어사
+    }
+    private static boolean isPato(int target, int me) {
+        return (me == 20 && target < 20) || (target == 20 && me < 20); // 파토
+    }
+    private static boolean isMungsa(int target, int me) {
+        return (me == 300 && target < 300) || (target == 300 && me < 300); // 멍사
+    }
+    private static boolean isTtaeng(int score) {
+        return (score >= 110 && score <= 190); // 땡
+    }
+    private static boolean isTtaengJabi(int score) {
+        return score == 200; // 땡잡이
     }
 }
 
