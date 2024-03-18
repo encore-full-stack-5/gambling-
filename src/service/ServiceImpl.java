@@ -1,4 +1,4 @@
-package service;
+
 
 import domain.Card;
 import domain.Result;
