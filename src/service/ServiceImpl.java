@@ -27,4 +27,33 @@ public class ServiceImpl implements Service {
         }
         return deck;
     }
+        @Override
+    public List<String> draw() {
+        List<Card> deck = makeCard();
+        List<String> drawCardList = new ArrayList<>();
+        String drawDeck = "";
+        for (int i = 0; i < 4; i++) {
+            int index = (int) (Math.random() * 9);
+            deck.get(index);
+
+            int uniqueCk = (int) (Math.random() * 2);
+
+            if (uniqueCk == 0) {
+                drawDeck = String.valueOf(makeCard().get(index).getMonth());
+            } else {
+                drawDeck = makeCard().get(index).getMonth() + "U";
+            }
+
+            drawCardList.add(drawDeck);
+
+            for (int j = 0; j < i; j++) {
+                if (drawCardList.get(i).equals(drawCardList.get(j))) {
+                    drawCardList.remove(j);
+                    i--;
+                }
+            }
+        }
+
+        return drawCard = drawCardList;
+    }
 }
