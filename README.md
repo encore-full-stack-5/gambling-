@@ -18,6 +18,11 @@
 
 <br/>
 
+### UML
+![스크린샷 2024-03-19 오후 12 29 28](https://github.com/encore-full-stack-5/gambling-git/assets/125454927/da8dfa5f-e014-4006-8bc4-48d6252ef642)
+
+<br/>
+
 ### 코드 간단설명
 
 > **카드 분배**
